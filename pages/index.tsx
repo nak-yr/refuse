@@ -26,7 +26,7 @@ const Home: NextPage = () => {
         <Timeline>
           <Timeline.Item>Thank you for visiting here.</Timeline.Item>
           <Timeline.Item>
-            This website, was named "Refuse", is under construction.
+            This website, was named &quot;Refuse&quot;, is under construction.
           </Timeline.Item>
           <Timeline.Item>I will put here some poetry and blog.</Timeline.Item>
           <Timeline.Item>I hope you will come here again.</Timeline.Item>
