@@ -1,16 +1,30 @@
 import { client } from "../../libs/client";
 
+import styles from "../../styles/Home.module.css";
+
 export default function BlogID({ blog }: { blog: any }) {
+  const fullPublishDate: Date = new Date(Date.parse(blog.publishedAt));
+  const publishDate: string =
+    fullPublishDate.getFullYear() +
+    "/" +
+    (fullPublishDate.getMonth() + 1) +
+    "/" +
+    fullPublishDate.getDate() +
+    " ";
+
   return (
-    <main>
-      <h1>{blog.title}</h1>
-      <p>{blog.publishedAt}</p>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `${blog.content}`,
-        }}
-      />
-    </main>
+    <div className={styles.container}>
+      <main className={styles.articles_main}>
+        <h1 className={styles.title}>{blog.title}</h1>
+        <p>published at : {publishDate}</p>
+        <hr style={{ width: "100%" }} />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `${blog.content}`,
+          }}
+        />
+      </main>
+    </div>
   );
 }
 
