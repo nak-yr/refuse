@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import GearIcon from "@rsuite/icons/Gear";
 import { client } from "../../libs/client";
 
 import styles from "../../styles/Home.module.css";

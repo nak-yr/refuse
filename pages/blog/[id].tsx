@@ -1,6 +1,7 @@
 import { client } from "../../libs/client";
 
 import styles from "../../styles/Home.module.css";
+import "rsuite/dist/rsuite.min.css";
 
 export default function BlogID({ blog }: { blog: any }) {
   const fullPublishDate: Date = new Date(Date.parse(blog.publishedAt));
