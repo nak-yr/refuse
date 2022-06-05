@@ -19,7 +19,7 @@ export const getStaticProps = async () => {
   };
 };
 
-const Blog: NextPage = ({ blogs }) => {
+const Blog: NextPage = ({ blogs }: { blogs?: any }) => {
   return (
     <div className={styles.container}>
       <Header />
@@ -34,7 +34,7 @@ const Blog: NextPage = ({ blogs }) => {
 
       <div className={styles.main}>
         <ul>
-          {blogs.map((blog) => (
+          {blogs.map((blog: any) => (
             <li key={blog.id}>
               <Link href={`/blog/${blog.id}`}>
                 <a>{blog.title}</a>

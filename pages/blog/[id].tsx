@@ -1,6 +1,6 @@
 import { client } from "../../libs/client";
 
-export default function BlogID({ blog }) {
+export default function BlogID({ blog }: { blog: any }) {
   return (
     <main>
       <h1>{blog.title}</h1>
@@ -17,11 +17,12 @@ export default function BlogID({ blog }) {
 export const getStaticPaths = async () => {
   const data = await client.get({ endpoint: "blogs" });
 
-  const paths = data.contents.map((content) => `/blog/${content.id}`);
+  const paths = data.contents.map((content: any) => `/blog/${content.id}`);
+
   return { paths, fallback: false };
 };
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context: any) => {
   const id = context.params.id;
   const data = await client.get({ endpoint: "blogs", contentId: id });
 
