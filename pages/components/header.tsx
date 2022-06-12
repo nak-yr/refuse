@@ -1,8 +1,6 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Navbar, Nav } from "rsuite";
 
-import styles from "../../styles/Home.module.css";
 import "rsuite/dist/rsuite.min.css";
 
 const Header = () => {
