@@ -24,7 +24,12 @@
 }
 
 .articles_main p {
-  font-size: 1.1rem !important;
+  font-size: 1rem !important;
+}
+
+.cards_main {
+  display: flex;
+  flex-direction: row;
 }
 
 .footer {
@@ -57,7 +62,7 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .title,
