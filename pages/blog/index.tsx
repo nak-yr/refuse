@@ -32,16 +32,19 @@ const Blog: NextPage = ({ blogs }: { blogs?: any }) => {
       </Head>
 
       <div className={styles.main} style={{ alignItems: "start" }}>
-        <ul style={{ listStyle: "none", width: "100%" }}>
+        <ul style={{ listStyle: "none", width: "100%", padding: "0" }}>
           {blogs.map((blog: any) => (
-            <li key={blog.id} style={{ borderBottom: "1px solid" }}>
+            <li
+              key={blog.id}
+              style={{ borderBottom: "1px solid", margin: "2vh" }}
+            >
               <Link href={`/blog/${blog.id}`}>
                 <a>{blog.title}</a>
               </Link>
               <p>
                 {new Date(Date.parse(blog.publishedAt)).getFullYear() +
                   "/" +
-                  new Date(Date.parse(blog.publishedAt)).getMonth() +
+                  (new Date(Date.parse(blog.publishedAt)).getMonth() + 1) +
                   "/" +
                   new Date(Date.parse(blog.publishedAt)).getDate()}
               </p>
