@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import { Timeline } from "rsuite";
+import { Col, Panel, Row } from "rsuite";
 
 import styles from "../styles/Home.module.css";
 import "rsuite/dist/rsuite.min.css";
 
 import Header from "./components/header";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -20,17 +20,46 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className={styles.main}>
+      <main
+        className={styles.main}
+        style={{ alignItems: "center", alignSelf: "center" }}
+      >
         <h1>Refuse</h1>
-        <hr />
-        <Timeline>
-          <Timeline.Item>Thank you for visiting here.</Timeline.Item>
-          <Timeline.Item>
-            This website, was named &quot;Refuse&quot;, is under construction.
-          </Timeline.Item>
-          <Timeline.Item>I will put here some poetry and blog.</Timeline.Item>
-          <Timeline.Item>I hope you will come here again.</Timeline.Item>
-        </Timeline>
+        <hr
+          style={{
+            width: "100%",
+            borderTop: "0.5vh double",
+          }}
+        />
+        <p style={{ margin: "5vh" }}>
+          今日の悩みが、苦しみが、楽しさが、いつかの糧になればいい。
+        </p>
+        <Row style={{ width: "100%" }}>
+          <Col xs={12}>
+            <Panel
+              header={
+                <Link href="/poetry" passHref>
+                  <a>Poetry</a>
+                </Link>
+              }
+              bordered
+            >
+              テーマを決めて視覚と文字で作品のようなものを作り、載せる場所
+            </Panel>
+          </Col>
+          <Col xs={12}>
+            <Panel
+              header={
+                <Link href="/blog" passHref>
+                  <a>Blog</a>
+                </Link>
+              }
+              bordered
+            >
+              感じたことや考えたことを忘れないように、書き留めておく場所
+            </Panel>
+          </Col>
+        </Row>
       </main>
 
       {/*<footer className={styles.footer}>
