@@ -1,6 +1,13 @@
+:root {
+  /*ビューポートの高さに合わせてheightを変更するために定義した変数*/
+  /*本当は100vhにしたいけど、スマホで高さに余剰が出るから場当たり的に90vhにしている*/
+  /*最終的には100vhに設定して望んだレイアウトになるようにしたい*/
+  --outer-height: 90vh;
+}
+
 html,
 body {
-  height: 100%;
+  height: var(--outer-height);
   padding: 0;
   margin: 0;
   font-family: "Hina Mincho", serif, -apple-system, BlinkMacSystemFont, Segoe UI,

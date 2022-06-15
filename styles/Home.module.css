@@ -1,5 +1,6 @@
 .container {
-  height: 100vh;
+  /*ビューポートの高さをresize契機で再取得し、都度代入する*/
+  height: var(--outer-height);
   padding: 0;
 }
 

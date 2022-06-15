@@ -8,6 +8,24 @@ import "rsuite/dist/rsuite.min.css";
 import Header from "./components/header";
 import Link from "next/link";
 
+/*------------ スマホ実機で想定通りにいかないので要検討 ------------*/
+if (process.browser) {
+  // スマホならtrue, PCならfalse
+  const isSP = /iPhone|iPod|iPad|Android/i.test(navigator.userAgent);
+
+  // DOMの読み込みが完了したら、表示領域の高さを自動更新する処理を実行する
+  document.addEventListener("resize", () => {
+    // 端末がスマホなら
+    if (isSP) {
+      // CSS変数 --outer-height に outerHeight px を代入
+      document.documentElement.style.setProperty(
+        "--outer-height",
+        `${window.outerHeight}px`
+      );
+    }
+  });
+}
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
