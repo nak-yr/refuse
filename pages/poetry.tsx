@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { List, FlexboxGrid, Placeholder } from "rsuite";
+import { List, FlexboxGrid, Placeholder, Message } from "rsuite";
 
 import styles from "../styles/Home.module.css";
 import "rsuite/dist/rsuite.min.css";
@@ -12,6 +12,7 @@ interface PoetryEntry {
   title: string;
 }
 
+/* ダミーの投稿エントリ テスト用なのでそのうち消す
 const dummyEntry: PoetryEntry[] = [
   {
     date: "yyyy-mm-dd",
@@ -26,9 +27,10 @@ const dummyEntry: PoetryEntry[] = [
     title: "test content3",
   },
 ];
+*/
 
 const Poetry: NextPage = () => {
-  const { Paragraph } = Placeholder;
+  //const { Paragraph } = Placeholder;
 
   return (
     <div className={styles.container}>
@@ -44,23 +46,29 @@ const Poetry: NextPage = () => {
       <Header />
 
       <div className={styles.main}>
+        <Message showIcon type="info" style={{ width: "90%" }}>
+          There is no posts yet.
+        </Message>
+
+        {/*
         <List hover style={{ width: "90%" }}>
           {dummyEntry.map((dummy, index) => (
             <List.Item key={index}>
               <FlexboxGrid>
                 <FlexboxGrid.Item colspan={6}>
-                  {/* タイトルだけ親要素のフォントサイズの1.5倍で表示する */}
+                  {// タイトルだけ親要素のフォントサイズの1.5倍で表示する} 
                   <div style={{ fontSize: "1.5em" }}>{dummy.title}</div>
                   <div>{dummy.date}</div>
                 </FlexboxGrid.Item>
                 <FlexboxGrid.Item colspan={18}>
-                  {/* Prop `style` did not match が出るけど、Paragraphはテストにしか使わないので一旦無視で */}
+                  {// Prop `style` did not match が出るけど、Paragraphはテストにしか使わないので一旦無視で}
                   <Paragraph />
                 </FlexboxGrid.Item>
               </FlexboxGrid>
             </List.Item>
           ))}
         </List>
+        */}
       </div>
     </div>
   );
