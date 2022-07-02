@@ -18,18 +18,26 @@ const Summer: NextPage = () => {
       <div css={main}>
         <h1 css={vertical}>夏が来る。</h1>
         <div>
-          <p>
+          <p css={paragraph}>
             今年も夏がやってくる。あのやたらと深い蒼をした、ノスタルジーの塊がやってくる。
           </p>
-          <p>失ったものが想起され、また一つ失う季節がやってくる。</p>
-          <p>届かないものに思いを馳せ、また今日も思い出を辿る。</p>
+          <p css={paragraph}>
+            失ったものが想起され、また一つ失う季節がやってくる。
+          </p>
+          <p css={paragraph}>
+            届かないものに思いを馳せ、また今日も思い出を辿る。
+          </p>
           <br />
           <br />
-          <p>夏の暑さはどうにも苦手だ。</p>
-          <p>でも窓の外に見えるあの空の蒼さは、どうしても嫌いになれない。</p>
-          <p>それはきっと思い出と同じだ。</p>
-          <p>一歩引いた場所から俯瞰すればかくも美しく見えるのだ。</p>
-          <p>
+          <p css={paragraph}>夏の暑さはどうにも苦手だ。</p>
+          <p css={paragraph}>
+            でも窓の外に見えるあの空の蒼さは、どうしても嫌いになれない。
+          </p>
+          <p css={paragraph}>それはきっと思い出と同じだ。</p>
+          <p css={paragraph}>
+            一歩引いた場所から俯瞰すればかくも美しく見えるのだ。
+          </p>
+          <p css={paragraph}>
             窓の外に覗く藍の空の様な、思い出の様な、どうにもできなくて綺麗なものを創りたい。
           </p>
         </div>
@@ -60,6 +68,11 @@ const main = css({
 
 const vertical = css({
   writingMode: "vertical-lr",
+  letterSpacing: "1em",
+});
+
+const paragraph = css({
+  fontSize: "1em",
 });
 
 export default Summer;
