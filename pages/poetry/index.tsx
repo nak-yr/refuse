@@ -18,10 +18,11 @@ interface PoetryEntry {
 // 投稿エントリの情報を格納した配列を定義
 const entry: PoetryEntry[] = [
   {
-    date: "2022-06-26",
+    date: "2022-07-03",
     title: "夏",
     link: "/poetry/1_summer",
-    description: "最初の作品",
+    description:
+      "今年は夏が来るのが早すぎたので、思い出の中の夏を考えるのと暑さを体感するのが同時になってしまった。思い出と現実が混ざりそうなので、思ったままに書いてみた。",
   },
 ];
 
