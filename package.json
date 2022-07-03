@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/babel-plugin": "^11.9.2",
+    "@emotion/react": "^11.9.3",
     "microcms-js-sdk": "^2.0.0",
     "next": "12.1.6",
     "react": "18.1.0",
