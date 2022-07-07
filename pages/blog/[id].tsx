@@ -1,4 +1,5 @@
 import { client } from "../../libs/client";
+import { useRouter } from "next/router";
 import Header from "../components/header";
 import Head from "next/head";
 
@@ -14,6 +15,12 @@ export default function BlogID({ blog }: { blog: any }) {
     "/" +
     fullPublishDate.getDate() +
     " ";
+
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.container}>
@@ -45,7 +52,7 @@ export const getStaticPaths = async () => {
 
   const paths = data.contents.map((content: any) => `/blog/${content.id}`);
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 };
 
 export const getStaticProps = async (context: any) => {
