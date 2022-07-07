@@ -7,6 +7,13 @@ import styles from "../../styles/Home.module.css";
 import "rsuite/dist/rsuite.min.css";
 
 export default function BlogID({ blog }: { blog: any }) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  // router.isFallbackがtrueの間はprops(blog)は未定義のため、if文の後に下記処理を記載
   const fullPublishDate: Date = new Date(Date.parse(blog.publishedAt));
   const publishDate: string =
     fullPublishDate.getFullYear() +
@@ -15,12 +22,6 @@ export default function BlogID({ blog }: { blog: any }) {
     "/" +
     fullPublishDate.getDate() +
     " ";
-
-  const router = useRouter();
-
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className={styles.container}>
