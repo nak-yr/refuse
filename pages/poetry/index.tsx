@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { List, FlexboxGrid, Placeholder } from "rsuite";
+import { List, FlexboxGrid } from "rsuite";
 
 import styles from "../../styles/Home.module.css";
 import "rsuite/dist/rsuite.min.css";
@@ -23,6 +23,13 @@ const entry: PoetryEntry[] = [
     link: "/poetry/1_summer",
     description:
       "今年は夏が来るのが早すぎたので、思い出の中の夏を考えるのと暑さを体感するのが同時になってしまった。思い出と現実が混ざりそうなので、思ったままに書いてみた。",
+  },
+  {
+    date: "2022-07-17",
+    title: "東京",
+    link: "/poetry/2_tokyo",
+    description:
+      "東京を歩きながら、生き方についてぼんやりと考えたことを表現してみた。",
   },
 ];
 
