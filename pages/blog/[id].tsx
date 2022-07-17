@@ -1,4 +1,5 @@
 import { client } from "../../libs/client";
+import { useRouter } from "next/router";
 import Header from "../components/header";
 import Head from "next/head";
 
@@ -6,6 +7,13 @@ import styles from "../../styles/Home.module.css";
 import "rsuite/dist/rsuite.min.css";
 
 export default function BlogID({ blog }: { blog: any }) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  // router.isFallbackがtrueの間はprops(blog)は未定義のため、if文の後に下記処理を記載
   const fullPublishDate: Date = new Date(Date.parse(blog.publishedAt));
   const publishDate: string =
     fullPublishDate.getFullYear() +
@@ -45,7 +53,7 @@ export const getStaticPaths = async () => {
 
   const paths = data.contents.map((content: any) => `/blog/${content.id}`);
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 };
 
 export const getStaticProps = async (context: any) => {
@@ -56,5 +64,6 @@ export const getStaticProps = async (context: any) => {
     props: {
       blog: data,
     },
+    revalidate: 10,
   };
 };

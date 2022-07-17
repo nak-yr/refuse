@@ -57,17 +57,16 @@ const wrapper = css({
 });
 
 // ページ読み込み時のフェードイン動作をkeyframesで定義
-// CSSと同じ書き方がわからなかったので、後々改修したい
-const fadein = keyframes`
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-`;
+const fadein = keyframes({
+  from: {
+    opacity: "0",
+    transform: "translateY(20px)",
+  },
+  to: {
+    opacity: "1",
+    transform: "translateY(0)",
+  },
+});
 
 const main = css({
   display: "flex",
