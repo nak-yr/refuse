@@ -24,6 +24,12 @@ const entry: PoetryEntry[] = [
     description:
       "今年は夏が来るのが早すぎたので、思い出の中の夏を考えるのと暑さを体感するのが同時になってしまった。思い出と現実が混ざりそうなので、思ったままに書いてみた。",
   },
+  {
+    date: "2022-07-10",
+    title: "未定",
+    link: "/poetry/2_unknown",
+    description: "何も決まっていないけど、とりあえず書いてみる。",
+  },
 ];
 
 const Poetry: NextPage = () => {
