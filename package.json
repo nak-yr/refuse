@@ -12,6 +12,7 @@
     "@emotion/babel-plugin": "^11.9.2",
     "@emotion/css": "^11.9.0",
     "@emotion/react": "^11.9.3",
+    "html-react-parser": "^3.0.1",
     "microcms-js-sdk": "^2.0.0",
     "next": "12.1.6",
     "react": "18.1.0",
