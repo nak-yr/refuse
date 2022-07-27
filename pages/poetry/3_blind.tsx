@@ -32,13 +32,13 @@ const Blind: NextPage = () => {
           違うんだ。そうじゃないんだ。
         </p>
         <p className={cx(styles.paragraph, styles.strong)}>
-          幸せになることだけが、幸せじゃない人だっているんだ。
+          幸せに成ることだけが、幸せじゃない人だっているんだ。
         </p>
         <p
           className={styles.paragraph}
           style={{ color: "gray", textIndent: "3em" }}
         >
-          例えどんな姿に成り果てようと、 他人から笑われる様になったとしても。
+          例えどんな姿に成り果てようと、 他人から笑われようと。
         </p>
         <p className={styles.paragraph}>僕だけは、君を笑わない。</p>
         <p className={styles.paragraph} style={{ textIndent: "3em" }}>
@@ -48,7 +48,7 @@ const Blind: NextPage = () => {
           className={styles.paragraph}
           style={{ color: "gray", textIndent: "6em" }}
         >
-          君の幸せは、幸せであることだけじゃないんだ。
+          君の幸せは、幸せで在ることだけじゃないんだ。
         </p>
         <p className={cx(styles.paragraph, styles.strong)}>
           ねえ、きっと、君は君の在る通りに。
@@ -74,7 +74,8 @@ const styles = {
     flexDirection: "row-reverse",
     alignContent: "center",
     justifyContent: "unset",
-    margin: "auto",
+    margin: "5vh auto",
+    height: "80%",
     overflowX: "scroll",
     flexWrap: "nowrap",
   }),
