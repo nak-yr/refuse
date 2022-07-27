@@ -9,7 +9,7 @@ const Tokyo: NextPage = () => {
   return (
     <div className={styles.wrapper}>
       <Head>
-        <title>Poetry: Unknown</title>
+        <title>Poetry: Tokyo</title>
         <meta
           name="description"
           content="A website created with the desire to be an artist."

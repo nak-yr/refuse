@@ -31,6 +31,13 @@ const entry: PoetryEntry[] = [
     description:
       "東京を歩きながら、生き方についてぼんやりと考えたことを表現してみた。",
   },
+  {
+    date: "2022-07-27",
+    title: "君の幸せは",
+    link: "/poetry/3_blind",
+    description:
+      "ヨルシカ 左右盲 に影響されて作ったもの。敬愛する人の人生に見栄えを期待せず、在るままを認めようとする歌詞に感動して詩を書いた。",
+  },
 ];
 
 const Poetry: NextPage = () => {
