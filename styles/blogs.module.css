@@ -24,7 +24,6 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 3rem;
 }
 
 .title a {
@@ -38,6 +37,7 @@
   text-decoration: underline;
 }
 
+/* 画像表示関連の設定 */
 .imageContainer span {
   position: static !important;
 }

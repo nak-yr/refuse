@@ -9,7 +9,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #00a381 !important;
   text-decoration: none;
   font-size: 1.1rem !important;
 }

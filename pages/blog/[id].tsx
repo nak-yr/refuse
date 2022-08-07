@@ -32,6 +32,7 @@ export default function BlogID({ blog }: { blog: any }) {
     " ";
 
   // html-react-perserを用いてHTMLをReactElementsにパースする際のオプション定義部分
+  // 基本的にmicroCMS APIからの応答はpタグでWrapされてくるので、必要のないpタグは取り除く処理をしている
   const options: HTMLReactParserOptions = {
     replace: (domNode: DOMNode) => {
       /*if (
@@ -56,6 +57,14 @@ export default function BlogID({ blog }: { blog: any }) {
             />
           </div>
         );
+      }
+      if (
+        domNode instanceof Element &&
+        domNode.children[0] instanceof Element &&
+        domNode.attribs &&
+        domNode.children[0].name === "br"
+      ) {
+        return <br />;
       }
     },
   };
