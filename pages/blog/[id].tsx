@@ -1,9 +1,17 @@
+import Image from "next/image";
 import { client } from "../../libs/client";
 import { useRouter } from "next/router";
+import parse, {
+  DOMNode,
+  domToReact,
+  Element,
+  HTMLReactParserOptions,
+} from "html-react-parser";
+
 import Header from "../components/header";
 import Head from "next/head";
 
-import styles from "../../styles/Home.module.css";
+import styles from "../../styles/blogs.module.css";
 import "rsuite/dist/rsuite.min.css";
 
 export default function BlogID({ blog }: { blog: any }) {
@@ -23,6 +31,35 @@ export default function BlogID({ blog }: { blog: any }) {
     fullPublishDate.getDate() +
     " ";
 
+  // html-react-perserを用いてHTMLをReactElementsにパースする際のオプション定義部分
+  const options: HTMLReactParserOptions = {
+    replace: (domNode: DOMNode) => {
+      /*if (
+        domNode instanceof Element &&
+        domNode.attribs &&
+        domNode.name === "p"
+      ) {
+        return <p {...domNode.attribs}>{domToReact(domNode.children)}</p>;
+      }*/
+      if (
+        domNode instanceof Element &&
+        domNode.children[0] instanceof Element &&
+        domNode.attribs &&
+        domNode.children[0].name === "img"
+      ) {
+        return (
+          <div className={styles.imageContainer}>
+            <Image
+              src={domNode.children[0].attribs.src}
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
+        );
+      }
+    },
+  };
+
   return (
     <div className={styles.container}>
       <Header />
@@ -34,15 +71,12 @@ export default function BlogID({ blog }: { blog: any }) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.articles_main}>
+      <main className={styles.main}>
         <h1 className={styles.title}>{blog.title}</h1>
         <p>published at : {publishDate}</p>
         <hr style={{ width: "100%" }} />
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `${blog.content}`,
-          }}
-        />
+        {/* APIで取得した本文のHTMLを整形し、パースする */}
+        <div className={styles.contents}>{parse(blog.content, options)}</div>
       </main>
     </div>
   );
