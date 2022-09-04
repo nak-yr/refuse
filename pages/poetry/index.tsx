@@ -38,6 +38,12 @@ const entry: PoetryEntry[] = [
     description:
       "ヨルシカ 左右盲 に影響されて作ったもの。敬愛する人の人生に見栄えを期待せず、在るままを認めようとする歌詞に感動して詩を書いた。",
   },
+  {
+    date: "2022-MM-dd",
+    title: "Fireworks",
+    link: "/poetry/4_fireworks",
+    description: "作成中",
+  },
 ];
 
 const Poetry: NextPage = () => {
