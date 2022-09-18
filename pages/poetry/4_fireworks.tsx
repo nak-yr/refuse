@@ -124,8 +124,6 @@ class Firework {
     }
   }
 
-  /* 残課題：花火の位置が左すぎる、グラデーション処理追加、残像の表示 */
-
   // 打ち上げ
   rise(p5: p5Types) {
     if (this.y * 0.8 < this.maxHeight) {
@@ -220,15 +218,12 @@ class Firework {
       if (this.explosionTimeLen < ex.frame) {
         ex.w -= 0.1;
         ex.a = ex.a - 4;
-        // 残像処理用クラスを追加後は、ここにafterImages.length===0の条件も付け加える
-        if (ex.a < 0) {
+        if (ex.a < 0 && 0 === ex.afterImages.length) {
           ex.type = END;
         }
       }
     }
   }
-
-  // 残像表示
 
   update(p5: p5Types, x: number, y: number, w: number, a: number) {
     this.frame++;
