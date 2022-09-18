@@ -1,7 +1,4 @@
-/** @jsxImportSource @emotion/react */
-
 /*
-
 本コードの花火アニメーションは、soramoyou04氏の下記リポジトリ内容をTypeScriptに落とし込んだものです。
 Reference source(Fireworks animation with p5js)
 https://github.com/soramoyou04/p5js-animation-shelf
@@ -13,8 +10,6 @@ import { css, cx } from "@emotion/css";
 
 import dynamic from "next/dynamic";
 import p5Types from "p5";
-import { timeStamp } from "console";
-import { ptBR } from "rsuite/esm/locales";
 
 const Y_AXIS = 1;
 const X_AXIS = 2;
@@ -23,7 +18,7 @@ const EXPLOSION = "explosion";
 const END = "end";
 
 let fireworks: Firework[] = [];
-let star: any[] = [];
+let star: [number, number, number][] = [];
 
 // Nextjsでp5jsを利用するためのWindow周りの設定
 const Sketch = dynamic(import("react-p5"), {
@@ -61,7 +56,8 @@ class Firework {
     y: number,
     vx: number,
     vy: number,
-    gv: number
+    gv: number,
+    w?: number
   ) {
     this.x = x;
     this.y = y;
@@ -85,8 +81,17 @@ class Firework {
     this.b = p5.random(155) + 80;
     this.a = 255;
 
-    // 玉の大きさ
-    this.w = p5.random(10, 5);
+    // 玉の大きさ(好みに応じてチューニング)
+    // 打ち上げ時と爆発時の球の大きさが同じになるように設定
+    // Fireworkクラスの初回生成時(打ち上げ時)は、球の大きさをランダムで生成
+    // 爆発時は、打ち上げ時の球の大きさを引き継ぐために玉の大きさを引数として入力
+    if (typeof w === "undefined") {
+      // 玉の大きさ指定なしでクラス生成された場合、ランダムな値を設定
+      this.w = p5.random(10, 3);
+    } else {
+      // 玉の大きさが指定されてクラス生成された場合、その大きさに設定
+      this.w = w;
+    }
 
     // 打ち上がる高さ
     this.maxHeight = p5.random(p5.height / 6, p5.height / 2);
@@ -127,7 +132,6 @@ class Firework {
   // 打ち上げ
   rise(p5: p5Types) {
     if (this.y * 0.8 < this.maxHeight) {
-      //this.y = 600;
       this.a = this.a - 6;
     }
 
@@ -166,7 +170,8 @@ class Firework {
           let vx = Math.cos((r * Math.PI) / 180) * s * this.explosionLange;
           let vy = Math.sin((r * Math.PI) / 180) * s * this.explosionLange;
           this.explosions.push(
-            new Firework(p5, this.x, this.y, vx, vy, this.explosionStop)
+            // 爆発時の玉の大きさを打ち上げ時と同じにするために、this.wを引数に追加
+            new Firework(p5, this.x, this.y, vx, vy, this.explosionStop, this.w)
           );
           // 花火の輪郭
           let cr = p5.random(0, 360);
@@ -174,7 +179,16 @@ class Firework {
           let cvx = Math.cos((cr * Math.PI) / 180) * cs * this.explosionLange;
           let cvy = Math.sin((cr * Math.PI) / 180) * cs * this.explosionLange;
           this.explosions.push(
-            new Firework(p5, this.x, this.y, cvx, cvy, this.explosionStop)
+            // 爆発時の玉の大きさを打ち上げ時と同じにするために、this.wを引数に追加
+            new Firework(
+              p5,
+              this.x,
+              this.y,
+              cvx,
+              cvy,
+              this.explosionStop,
+              this.w
+            )
           );
         }
         this.a = 255;
@@ -374,7 +388,7 @@ export function drawStar(p5: p5Types) {
 }
 
 // 花火を描きたい ここを参考にTSに落とし込み中 https://qiita.com/iNaoki04/items/5d420440cf3d89f54f82
-export const SketchComponet = () => {
+export const SketchFireworks = () => {
   let fw: Firework;
 
   const preload = (p5: p5Types) => {};
@@ -441,38 +455,4 @@ export const SketchComponet = () => {
   );
 };
 
-const Fireworks: NextPage = () => {
-  return (
-    <div className={styles.wrapper}>
-      <Head>
-        <title>Poetry: Fireworks</title>
-        <meta
-          name="description"
-          content="A website created with the desire to be an artist."
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className={styles.main}>
-        <SketchComponet />
-      </div>
-    </div>
-  );
-};
-
-export default Fireworks;
-
-const styles = {
-  wrapper: css({
-    display: "flex",
-    height: "100vh",
-    width: "100vw",
-    justifyContent: "center",
-  }),
-
-  main: css({
-    display: "flex",
-    flexDirection: "column",
-    alignContent: "center",
-    justifyContent: "center",
-  }),
-};
+export default SketchFireworks;
