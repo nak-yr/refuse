@@ -1,5 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
+/*
+
+本コードの花火アニメーションは、soramoyou04氏の下記リポジトリ内容をTypeScriptに落とし込んだものです。
+Reference source(Fireworks animation with p5js)
+https://github.com/soramoyou04/p5js-animation-shelf
+*/
+
 import type { NextPage } from "next";
 import Head from "next/head";
 import { css, cx } from "@emotion/css";
@@ -14,6 +21,9 @@ const X_AXIS = 2;
 const RISING = "rising";
 const EXPLOSION = "explosion";
 const END = "end";
+
+let fireworks: Firework[] = [];
+let star: any[] = [];
 
 // Nextjsでp5jsを利用するためのWindow周りの設定
 const Sketch = dynamic(import("react-p5"), {
@@ -144,32 +154,34 @@ class Firework {
     this.update(p5, this.x, this.y, this.w, this.a);
 
     // 全ての表示が消えたら処理の種類を変更する
-    if (0 === this.next) {
-      // 消えてから爆発までを遅延させる
-      this.next = this.frame + Math.round(this.explosionDelay);
-    } else if (this.next === this.frame) {
-      // this.explosionPartAmountの大きさの花火をthis.explosions配列に格納
-      for (let i = 0; i < this.explosionPartAmount; i++) {
-        // 爆発の角度
-        let r = p5.random(0, 360);
-        // 花火の内側
-        let s = p5.random(0.1, 0.9);
-        let vx = Math.cos((r * Math.PI) / 180) * s * this.explosionLange;
-        let vy = Math.sin((r * Math.PI) / 180) * s * this.explosionLange;
-        this.explosions.push(
-          new Firework(p5, this.x, this.y, vx, vy, this.explosionStop)
-        );
-        // 花火の輪郭
-        let cr = p5.random(0, 360);
-        let cs = p5.random(0.9, 1);
-        let cvx = Math.cos((cr * Math.PI) / 180) * cs * this.explosionLange;
-        let cvy = Math.sin((cr * Math.PI) / 180) * cs * this.explosionLange;
-        this.explosions.push(
-          new Firework(p5, this.x, this.y, cvx, cvy, this.explosionStop)
-        );
+    if (0 === this.afterImages.length) {
+      if (0 === this.next) {
+        // 消えてから爆発までを遅延させる
+        this.next = this.frame + Math.round(this.explosionDelay);
+      } else if (this.next === this.frame) {
+        // this.explosionPartAmountの大きさの花火をthis.explosions配列に格納
+        for (let i = 0; i < this.explosionPartAmount; i++) {
+          // 爆発の角度
+          let r = p5.random(0, 360);
+          // 花火の内側
+          let s = p5.random(0.1, 0.9);
+          let vx = Math.cos((r * Math.PI) / 180) * s * this.explosionLange;
+          let vy = Math.sin((r * Math.PI) / 180) * s * this.explosionLange;
+          this.explosions.push(
+            new Firework(p5, this.x, this.y, vx, vy, this.explosionStop)
+          );
+          // 花火の輪郭
+          let cr = p5.random(0, 360);
+          let cs = p5.random(0.9, 1);
+          let cvx = Math.cos((cr * Math.PI) / 180) * cs * this.explosionLange;
+          let cvy = Math.sin((cr * Math.PI) / 180) * cs * this.explosionLange;
+          this.explosions.push(
+            new Firework(p5, this.x, this.y, cvx, cvy, this.explosionStop)
+          );
+        }
+        this.a = 255;
+        this.type = EXPLOSION;
       }
-      this.a = 255;
-      this.type = EXPLOSION;
     }
   }
 
@@ -350,7 +362,22 @@ function setGradient(
   }
 }
 
-// p5jsでの各関数をTypeScriptで解釈できるように記載
+export function preStar(p5: p5Types) {
+  star = [];
+  for (let i = 0; i < 100; i++) {
+    star.push([p5.random(p5.width), p5.random(p5.height / 2), p5.random(1, 4)]);
+  }
+}
+
+export function drawStar(p5: p5Types) {
+  for (let s of star) {
+    let c = p5.color(p5.random(150, 255), p5.random(150, 255), 255);
+    c.setAlpha(p5.random(150, 200));
+    p5.fill(c);
+    p5.ellipse(s[0], s[1], s[2], s[2]);
+  }
+}
+
 // 花火を描きたい ここを参考にTSに落とし込み中 https://qiita.com/iNaoki04/items/5d420440cf3d89f54f82
 export const SketchComponet = () => {
   let fw: Firework;
@@ -364,8 +391,7 @@ export const SketchComponet = () => {
       .position(0, 0);
     p5.frameRate(60);
     p5.colorMode("rgb");
-    let speed: number = p5.random(10, 30);
-    fw = new Firework(p5, p5.random(p5.width), p5.height, 0, speed, 0.98);
+    preStar(p5);
   };
 
   const draw = (p5: p5Types) => {
@@ -381,12 +407,33 @@ export const SketchComponet = () => {
       Y_AXIS
     );
     p5.noStroke();
-    fw.fire(p5);
+
+    // 星を描画
+    //drawStar(p5);
+
+    // 打ち上げ間隔調整
+    if (0 === p5.frameCount % 100) {
+      let speed = p5.random(10, 30);
+      fireworks.push(
+        new Firework(p5, p5.random(p5.width), p5.height, 0, speed, 0.98)
+      );
+    }
+
+    for (let fw of fireworks) {
+      // 打ち切った花火を処理対象から除外
+      if (END === fw.getType || 30000 < fw.getFrame) {
+        fireworks = fireworks.filter((n) => n !== fw);
+        continue;
+      }
+      // 打ち上げアニメーション呼び出し
+      fw.fire(p5);
+    }
   };
 
   // コンポーネントのレスポンシブ化
   const windowResized = (p5: p5Types) => {
     p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+    preStar(p5);
   };
 
   return (
