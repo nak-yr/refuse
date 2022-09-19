@@ -82,12 +82,12 @@ class Firework {
     this.a = 255;
 
     // 玉の大きさ(好みに応じてチューニング)
-    // 打ち上げ時と爆発時の球の大きさが同じになるように設定
-    // Fireworkクラスの初回生成時(打ち上げ時)は、球の大きさをランダムで生成
+    // 打ち上げ時と爆発時の玉の大きさが同じになるように設定
+    // Fireworkクラスの初回生成時(打ち上げ時)は、玉の大きさをランダムで生成
     // 爆発時は、打ち上げ時の球の大きさを引き継ぐために玉の大きさを引数として入力
     if (typeof w === "undefined") {
       // 玉の大きさ指定なしでクラス生成された場合、ランダムな値を設定
-      this.w = p5.random(10, 3);
+      this.w = p5.random(6, 3);
     } else {
       // 玉の大きさが指定されてクラス生成された場合、その大きさに設定
       this.w = w;
@@ -387,10 +387,7 @@ export function drawStar(p5: p5Types) {
   }
 }
 
-// 花火を描きたい ここを参考にTSに落とし込み中 https://qiita.com/iNaoki04/items/5d420440cf3d89f54f82
 export const SketchFireworks = () => {
-  let fw: Firework;
-
   const preload = (p5: p5Types) => {};
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
@@ -418,7 +415,7 @@ export const SketchFireworks = () => {
     p5.noStroke();
 
     // 星を描画
-    //drawStar(p5);
+    drawStar(p5);
 
     // 打ち上げ間隔調整
     if (0 === p5.frameCount % 100) {

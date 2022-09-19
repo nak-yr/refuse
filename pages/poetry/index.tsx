@@ -13,6 +13,7 @@ interface PoetryEntry {
   title: string;
   link: string;
   description: string;
+  reference?: string;
 }
 
 // 投稿エントリの情報を格納した配列を定義
@@ -39,10 +40,12 @@ const entry: PoetryEntry[] = [
       "ヨルシカ 左右盲 に影響されて作ったもの。敬愛する人の人生に見栄えを期待せず、在るままを認めようとする歌詞に感動して詩を書いた。",
   },
   {
-    date: "2022-MM-dd",
+    date: "2022-09-19",
     title: "Fireworks",
     link: "/poetry/4_fireworks",
-    description: "作成中",
+    description:
+      "夏が終わる前に、花火を題材にした作品が欲しくなって作ったもの。",
+    reference: "https://github.com/soramoyou04/p5js-animation-shelf",
   },
 ];
 
@@ -75,6 +78,18 @@ const Poetry: NextPage = () => {
                 </FlexboxGrid.Item>
                 <FlexboxGrid.Item colspan={18}>
                   {ent.description}
+                  {typeof ent.reference === "string" && (
+                    <>
+                      <br />
+                      Reference:&emsp;
+                      <a
+                        href={ent.reference}
+                        style={{ fontSize: "1em!important" }}
+                      >
+                        {ent.reference}
+                      </a>
+                    </>
+                  )}
                 </FlexboxGrid.Item>
               </FlexboxGrid>
             </List.Item>
