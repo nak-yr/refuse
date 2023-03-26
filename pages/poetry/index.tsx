@@ -5,13 +5,12 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { css } from "@emotion/css";
-import { IconButton } from "rsuite";
+import { Button, IconButton, Animation } from "rsuite";
 import ArrowLeftLineIcon from "@rsuite/icons/ArrowLeftLine";
+import "rsuite/dist/rsuite.min.css";
 
 import Header from "../components/header";
 import React, { useEffect } from "react";
-import { handleClientScriptLoad } from "next/script";
-import Link from "next/link";
 
 interface PoetryEntry {
   date: string;
@@ -64,12 +63,17 @@ const Poetry: NextPage = () => {
     router.push(href);
   };
 
-  const [show, setShow] = React.useState(true);
+  const [show, setShow] = React.useState(false);
   const onLoad = () => setShow(!show);
 
   useEffect(() => {
     onLoad();
   }, []);
+
+  const [showPara, setShowPara] = React.useState(false);
+  const onFrameLoaded = () => {
+    setShowPara(!showPara);
+  };
 
   return (
     <>
@@ -85,18 +89,26 @@ const Poetry: NextPage = () => {
 
         <div className={styles.main}>
           {entry.map((ent, index) => (
-            <div
+            <Animation.Collapse
+              in={show}
+              dimension="width"
               className={styles.viewArea}
               key={index}
-              onClick={() => toPoem(ent.link)}
+              onEntered={() => onFrameLoaded()}
             >
-              <div className={styles.paragraph}>
-                <p style={{ fontSize: "1.5em" }}>{ent.title}</p>
-                <p style={{ width: "90%" }}>at: {ent.date}</p>
-                <hr style={{ width: "90%" }} />
-                <p style={{ width: "90%" }}>{ent.description}</p>
+              <div className={styles.viewArea}>
+                <div className={styles.paragraph}>
+                  <Animation.Fade in={showPara}>
+                    <div className={styles.innerParagraph}>
+                      <p style={{ fontSize: "1.5em" }}>{ent.title}</p>
+                      <p style={{ width: "90%" }}>at: {ent.date}</p>
+                      <hr style={{ width: "90%" }} />
+                      <p style={{ width: "90%" }}>{ent.description}</p>
+                    </div>
+                  </Animation.Fade>
+                </div>
               </div>
-            </div>
+            </Animation.Collapse>
           ))}
         </div>
       </div>
@@ -130,7 +142,7 @@ const styles = {
   }),
 
   viewArea: css({
-    display: "flex",
+    display: "flex!important",
     scrollSnapAlign: "start",
     height: "50vh",
     justifyContent: "center",
@@ -147,6 +159,16 @@ const styles = {
     height: "90%",
     width: "90%",
     backgroundColor: "rgba(15, 15, 15, 0.9)",
+  }),
+
+  innerParagraph: css({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    height: "100%",
+    width: "100%",
   }),
 
   button: css({
