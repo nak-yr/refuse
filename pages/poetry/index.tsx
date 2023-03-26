@@ -5,12 +5,16 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { css } from "@emotion/css";
-import { Button, IconButton, Animation } from "rsuite";
+import { IconButton, Animation } from "rsuite";
 import ArrowLeftLineIcon from "@rsuite/icons/ArrowLeftLine";
 import "rsuite/dist/rsuite.min.css";
 
-import Header from "../components/header";
 import React, { useEffect } from "react";
+
+enum DIMENSION {
+  HEIGHT = "height",
+  WIDTH = "width",
+}
 
 interface PoetryEntry {
   date: string;
@@ -54,6 +58,8 @@ const entry: PoetryEntry[] = [
 ];
 
 const Poetry: NextPage = () => {
+  const dimension: DIMENSION = DIMENSION.WIDTH;
+
   const router = useRouter();
   const toHome = () => {
     router.push("/");
@@ -93,9 +99,10 @@ const Poetry: NextPage = () => {
               in={show}
               className={styles.viewArea}
               key={index}
+              dimension={dimension}
               onEntered={() => onFrameLoaded()}
             >
-              <div className={styles.viewArea}>
+              <div className={styles.viewArea} onClick={() => toPoem(ent.link)}>
                 <div className={styles.paragraph}>
                   <Animation.Fade in={showPara}>
                     <div className={styles.innerParagraph}>
