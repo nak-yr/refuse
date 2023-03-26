@@ -91,7 +91,6 @@ const Poetry: NextPage = () => {
           {entry.map((ent, index) => (
             <Animation.Collapse
               in={show}
-              dimension="width"
               className={styles.viewArea}
               key={index}
               onEntered={() => onFrameLoaded()}
